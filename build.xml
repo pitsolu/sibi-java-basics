@@ -1,0 +1,43 @@
+<project name="Java 101" default="help" basedir=".">
+
+  <target name="help">
+    <echo>
+      You can use the following targets:
+
+        help    : (default) Prints this message
+        all     : cleans, compiles, packages and runs applicatio
+        clean   : Deletes build director
+        compile : Compiles java files into classe
+        run     : runs java applicatio
+
+      For example, to clean, compile, and package all at once, run
+      prompt> ant all
+    </echo>
+  </target>
+
+  <target name="all" depends="clean,compile,jar,run"
+          description="Clean work dirs, then compile and create a WAR"/>
+
+  <target name="clean">
+    <delete dir="build"/>
+  </target>
+
+  <target name="compile">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="src" destdir="build/classes"/>
+  </target>
+
+  <target name="jar">
+    <mkdir dir="build/jar"/>
+    <jar destfile="build/jar/Java101.jar" basedir="build/classes">
+        <manifest>
+            <attribute name="Main-Class" value="com.sibi.labs.Main"/>
+        </manifest>
+    </jar>
+  </target>
+
+  <target name="run">
+    <java jar="build/jar/Java101.jar" fork="true"/>
+  </target>
+
+</project> 
